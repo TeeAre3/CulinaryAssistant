@@ -3,6 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CulinaryAssistant.MainPage">
 
-    <Label Text="Tutaj będzie nasza lista przepisów!" HorizontalOptions="Center" VerticalOptions="Center" />
+    <Grid RowDefinitions="Auto, Auto, *">
+        <SearchBar Grid.Row="0"
+                   Placeholder="Wpisz główny składnik (np. chicken)"
+                   Text="{Binding SearchQuery, Mode=TwoWay}"
+                   SearchCommand="{Binding SearchCommand}"
+                   Margin="10"/>
+        <ActivityIndicator Grid.Row="1"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center"
+                           Color="Orange"/>
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Meals}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    
+                    <Frame Margin="0,5,0,5" Padding="10" CornerRadius="10">
+                        <Grid ColumnDefinitions="100, *">
+                            
+                            <Image Grid.Column="0"
+                                   Source="{Binding ImageUrl}"
+                                   HeightRequest="100"
+                                   WidthRequest="100"
+                                   Aspect="AspectFill"/>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Title}"
+                                   VerticalOptions="Center"
+                                   Margin="15,0,0,0"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+    
 
 </ContentPage>
