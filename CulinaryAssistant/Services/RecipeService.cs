@@ -28,5 +28,22 @@ namespace CulinaryAssistant.Services
                 return new List<Meal>();
             }
         }
+
+        public async Task<MealDetail> GetMealDetailsByIdAsync(string mealId)
+        {
+            try
+            {
+                string url = $"{BaseUrl}lookup.php?i={mealId}";
+
+                var response = await _httpClient.GetFromJsonAsync<MealDetailApiResponse>(url);
+
+                return response?.Meals?.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd pobierania danych: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

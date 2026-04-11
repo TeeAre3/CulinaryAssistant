@@ -46,22 +46,38 @@ namespace CulinaryAssistant.ViewModels
         {
             if (string.IsNullOrWhiteSpace(SearchQuery))
             {
-                await Application.Current.MainPage.DisplayAlert("Test", "Pole wyszukiwania jest puste", "OK");
+                await Application.Current.MainPage.DisplayAlert("Warning", "Search field is empty", "OK");
                 return;
             }
 
             IsBusy = true;
-
             Meals.Clear();
 
-            var results = await _recipeService.GetMealsByIngredientAsync(SearchQuery);
+            try
+            { 
+                var results = await _recipeService.GetMealsByIngredientAsync(SearchQuery);
 
-            foreach (var meal in results)
-            {
-                Meals.Add(meal);
+                if(results == null || results.Count == 0)
+                {
+                    await Application.Current.MainPage.DisplayAlert("No results", "Could not fetch data. Check your internet connection or try another ingredient.", "OK");
+                }
+                else
+                {
+                    foreach (var meal in results)
+                    {
+                        Meals.Add(meal);
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("System Error", ex.Message, "OK");
 
-            IsBusy = false;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

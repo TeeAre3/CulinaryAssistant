@@ -4,17 +4,30 @@
              x:Class="CulinaryAssistant.MainPage">
 
     <Grid RowDefinitions="Auto, Auto, *">
-        <SearchBar Grid.Row="0"
-                   Placeholder="Wpisz główny składnik (np. chicken)"
-                   Text="{Binding SearchQuery, Mode=TwoWay}"
-                   SearchCommand="{Binding SearchCommand}"
-                   Margin="10"/>
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="10">
+
+            <SearchBar Grid.Column="0" 
+                   Placeholder="Wpisz składnik (np. chicken)" 
+                   Text="{Binding SearchQuery}"
+                   SearchCommand="{Binding SearchCommand}" />
+
+            <Button Grid.Column="1" 
+                Text="Search" 
+                Command="{Binding SearchCommand}" 
+                Margin="10,0,0,0" 
+                FontAttributes="Bold" />
+
+        </Grid>
         <ActivityIndicator Grid.Row="1"
                            IsRunning="{Binding IsBusy}"
                            IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center"
                            Color="Orange"/>
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Meals}" Margin="10">
+        <CollectionView Grid.Row="2" 
+                        ItemsSource="{Binding Meals}" 
+                        Margin="10"
+                        SelectionMode="Single"
+                        SelectionChanged="OnRecipeSelected">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     
