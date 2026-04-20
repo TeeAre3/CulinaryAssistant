@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:conv="clr-namespace:CulinaryAssistant.Converters"
              x:Class="CulinaryAssistant.Views.RecipeDetailsPage"
              Title="Recipe Details">
-
-    <ContentPage.Resources>
-        <conv:StringToBoolConverter x:Key="NotEmptyConverter" />
-    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
@@ -34,105 +29,17 @@
 
             <Label Text="Ingredients:" FontSize="20" FontAttributes="Bold" Margin="0,15,0,5" />
 
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient1, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient1}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure1}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient2, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient2}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure2}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient3, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient3}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure3}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient4, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient4}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure4}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient5, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient5}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure5}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient6, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient6}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure6}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient7, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient7}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure7}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient8, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient8}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure8}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient9, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient9}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure9}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient10, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient10}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure10}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient11, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient11}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure11}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient12, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient12}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure12}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient13, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient13}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure13}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient14, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient14}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure14}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient15, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient15}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure15}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient16, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient16}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure16}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient17, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient17}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure17}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient18, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient18}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure18}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient19, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient19}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure19}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" IsVisible="{Binding Recipe.Ingredient20, Converter={StaticResource NotEmptyConverter}}">
-                <Label Text="{Binding Recipe.Ingredient20}" FontAttributes="Bold" />
-                <Label Text="{Binding Recipe.Measure20}" />
-            </HorizontalStackLayout>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Recipe.Ingredients}" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label Text="-" TextColor="Gray" />
+                            <Label Text="{Binding Measure}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
 
             <Label Text="Instructions:" FontSize="20" FontAttributes="Bold" Margin="0,15,0,5" />
 

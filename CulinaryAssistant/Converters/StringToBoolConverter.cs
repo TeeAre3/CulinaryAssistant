@@ -13,7 +13,7 @@ namespace CulinaryAssistant.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();//niech coś tu sei dzieje / wypisuje
         }
     }
 }
