@@ -11,10 +11,10 @@ namespace CulinaryAssistant.ViewModels
         private readonly RecipeService _recipeService;
         private readonly IMapper _mapper;
 
-        private CleanRecipe _recipe;
+        private CleanRecipe? _recipe;
         private bool _isLoading;
 
-        public CleanRecipe Recipe
+        public CleanRecipe? Recipe
         {
             get => _recipe;
             set
@@ -44,15 +44,31 @@ namespace CulinaryAssistant.ViewModels
             }, NullLoggerFactory.Instance);
             _mapper = config.CreateMapper();
 
-            LoadRecipeAsync(mealId);
+            _ = LoadRecipeAsync(mealId);
         }
 
-        private async void LoadRecipeAsync(string mealId)
+        private async Task LoadRecipeAsync(string mealId)
         {
             IsLoading = true;
-            var rawRecipe = await _recipeService.GetMealDetailsByIdAsync(mealId);
-            Recipe = _mapper.Map<CleanRecipe>(rawRecipe);
-            IsLoading = false;
+            try
+            {
+                var rawRecipe = await _recipeService.GetMealDetailsByIdAsync(mealId);
+                if(rawRecipe != null)
+                { 
+                    Recipe = _mapper.Map<CleanRecipe>(rawRecipe);
+                }
+            }
+            catch (Exception)
+            {
+                await Application.Current!.Windows[0].Page!.DisplayAlert(
+                    "Error",
+                    $"Failed to load recipe details. Please check your internet conection.",
+                    "OK");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

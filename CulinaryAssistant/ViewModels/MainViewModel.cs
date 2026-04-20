@@ -9,7 +9,7 @@ namespace CulinaryAssistant.ViewModels
     {
         private readonly RecipeService _recipeService;
 
-        private string _searchQuery;
+        private string _searchQuery = string.Empty;
         private bool _isBusy;
 
         public ObservableCollection<Meal> Meals {  get; set; } = new ObservableCollection<Meal>();
@@ -46,7 +46,7 @@ namespace CulinaryAssistant.ViewModels
         {
             if (string.IsNullOrWhiteSpace(SearchQuery))
             {
-                await Application.Current.MainPage.DisplayAlert("Warning", "Search field is empty", "OK");
+                await Application.Current!.Windows[0].Page!.DisplayAlert("Warning", "Search field is empty", "OK");
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace CulinaryAssistant.ViewModels
 
                 if(results == null || results.Count == 0)
                 {
-                    await Application.Current.MainPage.DisplayAlert("No results", "Could not fetch data. Check your internet connection or try another ingredient.", "OK");
+                    await Application.Current!.Windows[0].Page!.DisplayAlert("No results", "Could not fetch data. Check your internet connection or try another ingredient.", "OK");
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace CulinaryAssistant.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("System Error", ex.Message, "OK");
+                await Application.Current!.Windows[0].Page!.DisplayAlert("System Error", ex.Message, "OK");
 
             }
             finally
