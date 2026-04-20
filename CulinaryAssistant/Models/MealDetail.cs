@@ -27,7 +27,7 @@ namespace CulinaryAssistant.Models
         public string? YoutubeUrl { get; set; }
 
         [JsonExtensionData]
-        public Dictionary<string, JsonElement> OverflowData { get; set; }
+        public Dictionary<string, JsonElement>? OverflowData { get; set; }
 
         public List<IngredientItem> ExtractIngredients()
         {
@@ -35,14 +35,14 @@ namespace CulinaryAssistant.Models
 
             for (int i = 1; i <= 20; i++)
             {
-                string ingredientKey = $"strIngredient{i}";
-                string measureKey = $"strMeasure{i}";
+                string? ingredientKey = $"strIngredient{i}";
+                string? measureKey = $"strMeasure{i}";
 
                 if (OverflowData != null && OverflowData.ContainsKey(ingredientKey))
                 {
-                    string name = OverflowData[ingredientKey].GetString();
+                    string? name = OverflowData[ingredientKey].GetString();
 
-                    string measure = "";
+                    string? measure = "";
                     if (OverflowData.ContainsKey(measureKey) && OverflowData[measureKey].ValueKind != JsonValueKind.Null)
                     {
                         measure = OverflowData[measureKey].GetString();

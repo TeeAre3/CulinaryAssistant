@@ -14,7 +14,7 @@ namespace CulinaryAssistant
 
         private async void OnRecipeSelected(object sender, SelectionChangedEventArgs e)
         {
-            if(e.CurrentSelection.FirstOrDefault() is Meal selectedMeal)
+            if(e.CurrentSelection.FirstOrDefault() is Meal selectedMeal && selectedMeal.Id != null)
             {
                 ((CollectionView)sender).SelectedItem = null;
 

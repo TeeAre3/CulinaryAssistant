@@ -29,7 +29,7 @@ namespace CulinaryAssistant.Services
             }
         }
 
-        public async Task<MealDetail> GetMealDetailsByIdAsync(string mealId)
+        public async Task<MealDetail?> GetMealDetailsByIdAsync(string mealId)
         {
             try
             {
