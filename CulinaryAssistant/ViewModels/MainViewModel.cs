@@ -63,7 +63,9 @@ namespace CulinaryAssistant.ViewModels
                 }
                 else
                 {
-                    foreach (var meal in results)
+                    var sortedResults = results.OrderBy(meal => meal.Title).ToList();
+
+                    foreach (var meal in sortedResults)
                     {
                         Meals.Add(meal);
                     }

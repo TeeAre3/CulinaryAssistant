@@ -31,31 +31,15 @@ namespace CulinaryAssistant.Models
 
         public List<IngredientItem> ExtractIngredients()
         {
-            var ingredientsList = new List<IngredientItem>();
-
-            for (int i = 1; i <= 20; i++)
-            {
-                string? ingredientKey = $"strIngredient{i}";
-                string? measureKey = $"strMeasure{i}";
-
-                if (OverflowData != null && OverflowData.ContainsKey(ingredientKey))
+            return Enumerable.Range(1,20)
+                .Select(i => new
                 {
-                    string? name = OverflowData[ingredientKey].GetString();
-
-                    string? measure = "";
-                    if (OverflowData.ContainsKey(measureKey) && OverflowData[measureKey].ValueKind != JsonValueKind.Null)
-                    {
-                        measure = OverflowData[measureKey].GetString();
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(name))
-                    {
-                        ingredientsList.Add(new IngredientItem { Name = name, Measure = measure });
-                    }
-                }
-            }
-
-            return ingredientsList;
+                    Name = OverflowData?[$"strIngredient{i}"].GetString(),
+                    Measure = OverflowData?[$"strMeasure{i}"].GetString()
+                })
+                .Where(x => !string.IsNullOrWhiteSpace(x.Name))
+                .Select(x => new IngredientItem { Name = x.Name!, Measure = x.Measure ?? "" })
+                .ToList();
         }
     }
 
