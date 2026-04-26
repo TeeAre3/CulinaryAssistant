@@ -8,11 +8,22 @@
 
     <Grid RowDefinitions="Auto, Auto, *">
         <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="10">
+            <Grid ColumnDefinitions="*, Auto" Padding="15,10" ColumnSpacing="15">
 
-            <SearchBar Grid.Column="0" 
-                   Placeholder="Wpisz składnik (np. chicken)" 
-                   Text="{Binding SearchQuery}"
-                   SearchCommand="{Binding SearchCommand}" />
+                <SearchBar Grid.Column="0" 
+                           Text="{Binding SearchQuery}" 
+                           Placeholder="Search ingredient..." 
+                           SearchCommand="{Binding SearchCommand}"
+                           HorizontalOptions="Fill" />
+
+                <Picker Grid.Column="1" 
+                        Title="Region"
+                        ItemsSource="{Binding Areas}"
+                        SelectedItem="{Binding SelectedArea}"
+                        VerticalOptions="Center"
+                        WidthRequest="130" />
+
+            </Grid>
 
             <Button Grid.Column="1" 
                 Text="Search" 

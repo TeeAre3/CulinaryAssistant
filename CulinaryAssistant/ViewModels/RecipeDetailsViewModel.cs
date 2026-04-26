@@ -3,16 +3,19 @@ using CulinaryAssistant.Services;
 using AutoMapper;
 using CulinaryAssistant.Profiles;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Windows.Input;
 
 namespace CulinaryAssistant.ViewModels
 {
     public class RecipeDetailsViewModel : BindableObject
     {
         private readonly RecipeService _recipeService;
+        private readonly FavoritesService _favoritesService;
         private readonly IMapper _mapper;
 
         private CleanRecipe? _recipe;
         private bool _isLoading;
+        private bool _isFavorite;
 
         public CleanRecipe? Recipe
         {
@@ -34,9 +37,24 @@ namespace CulinaryAssistant.ViewModels
             }
         }
 
+        public bool IsFavorite
+        {
+            get => _isFavorite;
+            set
+            {
+                _isFavorite = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(FavoriteButtonText));
+            }
+        }
+
+        public string FavoriteButtonText => IsFavorite ? "Remove from Favorites" : "Add to favorites";
+        public ICommand ToggleFavoriteCommand { get; }
+
         public RecipeDetailsViewModel(string mealId)
         {
             _recipeService = new RecipeService();
+            _favoritesService = new FavoritesService();
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -44,7 +62,25 @@ namespace CulinaryAssistant.ViewModels
             }, NullLoggerFactory.Instance);
             _mapper = config.CreateMapper();
 
+            ToggleFavoriteCommand = new Command(ToggleFavorite);
+
             _ = LoadRecipeAsync(mealId);
+        }
+
+        private void ToggleFavorite()
+        {
+            if (Recipe?.Id == null) return;
+
+            if(IsFavorite)
+            {
+                _favoritesService.RemoveFromFavorites(Recipe.Id);
+                IsFavorite = false;
+            }
+            else
+            {
+                _favoritesService.AddToFavorites(Recipe.Id);
+                IsFavorite = true;
+            }
         }
 
         private async Task LoadRecipeAsync(string mealId)
@@ -56,6 +92,11 @@ namespace CulinaryAssistant.ViewModels
                 if(rawRecipe != null)
                 { 
                     Recipe = _mapper.Map<CleanRecipe>(rawRecipe);
+
+                    if(Recipe.Id != null)
+                    {
+                        IsFavorite = _favoritesService.IsFavorite(Recipe.Id);
+                    }
                 }
             }
             catch (Exception)

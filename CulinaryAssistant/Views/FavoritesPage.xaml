@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CulinaryAssistant.Views.FavoritesPage"
+             xmlns:viewmodels="clr-namespace:CulinaryAssistant.ViewModels"
+             xmlns:models="clr-namespace:CulinaryAssistant.Models"
+             x:DataType="viewmodels:FavoritesViewModel"
+             Title="My Favorites">
+
+    <Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                           IsVisible="{Binding IsBusy}" 
+                           Color="Orange" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" 
+                           ZIndex="1"/>
+
+        <CollectionView ItemsSource="{Binding FavoriteMeals}" 
+                        SelectionMode="Single" 
+                        SelectionChanged="OnRecipeSelected">
+            <CollectionView.EmptyView>
+                <Label Text="You don't have any favorite recipes yet." 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       TextColor="Gray" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:CleanRecipe">
+                    <Border Margin="10,5" 
+                            Padding="10" 
+                            StrokeShape="RoundRectangle 10" 
+                            StrokeThickness="0" 
+                            BackgroundColor="#2C2C2C">
+                        <Grid ColumnDefinitions="100, *">
+                            <Image Grid.Column="0" Source="{Binding ImageUrl}" HeightRequest="80" WidthRequest="80" Aspect="AspectFill" />
+                            <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="Center" FontSize="18" FontAttributes="Bold" Margin="10,0,0,0"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
